@@ -14,9 +14,11 @@ function getUsersWithPosts() {
       'p.contents',
       'u.username',
     )
-  const result = rows.reduce((acc, ) => {
+  const result = rows.reduce((acc, post) => {
 
-  })
+  }, {})
+
+  return result
 }
 
 
