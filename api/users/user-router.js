@@ -10,15 +10,19 @@ function getUsersWithPosts() {
     .join('users u', 'p.user_id', '=', 'u.id')
     .select(
       'u.id user_id',
-      'p.id',
+      'p.id post_id',
       'p.contents',
       'u.username',
     )
 }
 
 
-router.get("/", (req, res) => {
-
+router.get("/", async (req, res) => {
+  try {
+    const rows = await getUsersWithPosts()
+  } catch (err) {
+    console.log(err)
+  }
 });
 
 router.get("/:id", (req, res) => {
