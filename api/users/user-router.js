@@ -19,7 +19,7 @@ async function getUsersWithPosts() {
     if (acc[post.username]) {
       acc[post.username].posts.push({ contents, id: post_id })
     } else {
-      acc[post.username] = { id: post.user_id, posts: [{ contents, post_id }] }
+      acc[post.username] = { id: post.user_id, posts: [{ contents, id: post_id }] }
     }
     return acc
   }, {})
