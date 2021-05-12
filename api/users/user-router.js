@@ -18,7 +18,7 @@ function getUsersWithPosts() {
     if (acc[post.username]) {
       acc[post.username].posts.push(post)
     } else {
-      
+      acc[post.username] = { id: acc[post.user_id],  }
     }
   }, {})
 
