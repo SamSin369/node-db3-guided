@@ -14,6 +14,7 @@ function getUsersWithPosts() {
       'p.contents',
       'u.username',
     )
+  return rows
 }
 
 
