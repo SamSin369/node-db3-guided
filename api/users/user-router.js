@@ -21,7 +21,6 @@ function getUsersWithPosts() {
 router.get("/", async (req, res) => {
   try {
     const rows = await getUsersWithPosts()
-    res.json(rows)
   } catch (err) {
     console.log(err)
   }
