@@ -15,11 +15,11 @@ async function getUsersWithPosts() {
       'u.username',
     )
   const result = rows.reduce((acc, post) => {
-    const { contents, post_id} = post
+    const { contents, post_id } = post
     if (acc[post.username]) {
-      acc[post.username].posts.push(post)
+      acc[post.username].posts.push({ contents, post_id })
     } else {
-      acc[post.username] = { id: post.user_id, posts: [post] }
+      acc[post.username] = { id: post.user_id, posts: [{ contents, post_id }] }
     }
     return acc
   }, {})
