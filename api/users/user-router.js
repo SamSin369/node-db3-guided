@@ -5,8 +5,8 @@ const db = require("../../data/db-config.js");
 const router = express.Router();
 
 
-function getUsersWithPosts() {
-  const rows = db('posts as p')
+async function getUsersWithPosts() {
+  const rows = await db('posts as p')
     .join('users as u', 'p.user_id', '=', 'u.id')
     .select(
       'u.id as user_id',
