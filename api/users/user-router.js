@@ -6,7 +6,7 @@ const router = express.Router();
 
 
 function getUsersWithPosts() {
-  
+  const rows = db('posts')
 }
 
 
