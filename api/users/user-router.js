@@ -6,11 +6,11 @@ const router = express.Router();
 
 
 function getUsersWithPosts() {
-  const rows = db('posts p')
-    .join('users u', 'p.user_id', '=', 'u.id')
+  const rows = db('posts as p')
+    .join('users as u', 'p.user_id', '=', 'u.id')
     .select(
-      'u.id user_id',
-      'p.id post_id',
+      'u.id as user_id',
+      'p.id as post_id',
       'p.contents',
       'u.username',
     )
