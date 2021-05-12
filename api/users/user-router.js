@@ -16,9 +16,9 @@ function getUsersWithPosts() {
     )
   const result = rows.reduce((acc, post) => {
     if (acc[post.username]) {
-      
+      acc[post.username].posts.push(post)
     } else {
-
+      
     }
   }, {})
 
