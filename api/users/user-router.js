@@ -4,14 +4,20 @@ const db = require("../../data/db-config.js");
 
 const router = express.Router();
 
+function getUsersWithPosts() {
+  const rows = db("posts p")
+    .join("users u", "p.user_id", "=", "u.id")
+    .select("u.id user_id", "p.id post_id", "p.contents", "u.username");
+  return rows;
+}
+
 router.get("/", (req, res) => {
-  db("users")
-    .then(users => {
-      res.json(users);
-    })
-    .catch(err => {
-      res.status(500).json({ message: "Failed to get users" });
-    });
+  try {
+    const rows = await getUsersWithPosts();
+    res.json(rows);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 router.get("/:id", (req, res) => {
@@ -19,7 +25,7 @@ router.get("/:id", (req, res) => {
 
   db("users")
     .where({ id })
-    .then(users => {
+    .then((users) => {
       const user = users[0];
 
       if (user) {
@@ -28,7 +34,7 @@ router.get("/:id", (req, res) => {
         res.status(404).json({ message: "Could not find user with given id." });
       }
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).json({ message: "Failed to get user" });
     });
 });
@@ -38,10 +44,10 @@ router.post("/", (req, res) => {
 
   db("users")
     .insert(userData, "id")
-    .then(ids => {
+    .then((ids) => {
       res.status(201).json({ created: ids[0] });
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).json({ message: "Failed to create new user" });
     });
 });
@@ -53,14 +59,14 @@ router.put("/:id", (req, res) => {
   db("users")
     .where({ id })
     .update(changes)
-    .then(count => {
+    .then((count) => {
       if (count) {
         res.json({ update: count });
       } else {
         res.status(404).json({ message: "Could not find user with given id" });
       }
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).json({ message: "Failed to update user" });
     });
 });
@@ -71,14 +77,14 @@ router.delete("/:id", (req, res) => {
   db("users")
     .where({ id })
     .del()
-    .then(count => {
+    .then((count) => {
       if (count) {
         res.json({ removed: count });
       } else {
         res.status(404).json({ message: "Could not find user with given id" });
       }
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).json({ message: "Failed to delete user" });
     });
 });
